@@ -13,6 +13,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class DamageBuff extends Trait {
+
     public DamageBuff() {
         super(new ResourceLocation(AttributesConstants.MODID, "damagebuff"), 0, 3, new ResourceLocation(LibMisc.MOD_ID, "attack"), 0, "");
     }
