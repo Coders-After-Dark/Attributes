@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ResistanceBuff extends Trait {
     public ResistanceBuff() {
-        super(new ResourceLocation(AttributesConstants.MODID, "resistancebuff"), 4, 2, new ResourceLocation(LibMisc.MOD_ID, "defense"), 0, "");
+        super(new ResourceLocation(AttributesConstants.MODID, "resistancebuff"), 0, 3, new ResourceLocation(LibMisc.MOD_ID, "defense"), 0, "");
     }
 
     @SubscribeEvent

@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class MiningBuff extends Trait {
     public MiningBuff() {
-        super(new ResourceLocation(AttributesConstants.MODID, "miningbuff"), 4, 2, new ResourceLocation(LibMisc.MOD_ID, "mining"), 0, "");
+        super(new ResourceLocation(AttributesConstants.MODID, "miningbuff"), 0, 3, new ResourceLocation(LibMisc.MOD_ID, "mining"), 0, "");
     }
 
     @SubscribeEvent

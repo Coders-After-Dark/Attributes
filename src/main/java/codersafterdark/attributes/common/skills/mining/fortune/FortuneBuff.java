@@ -35,7 +35,7 @@ public class FortuneBuff extends Trait {
     }
 
     public FortuneBuff() {
-        super(new ResourceLocation(AttributesConstants.MODID, "fortunebuff"), 4, 3, new ResourceLocation(LibMisc.MOD_ID, "mining"), 0, "");
+        super(new ResourceLocation(AttributesConstants.MODID, "fortunebuff"), 1, 3, new ResourceLocation(LibMisc.MOD_ID, "mining"), 0, "");
     }
 
     @SubscribeEvent

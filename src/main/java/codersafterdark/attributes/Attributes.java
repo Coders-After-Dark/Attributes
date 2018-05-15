@@ -33,17 +33,16 @@ public class Attributes {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
+    }
+
+    @EventHandler
+    public void init(FMLInitializationEvent event) {
         ReskillableRegistries.UNLOCKABLES.registerAll(
                 new DamageBuff(),
                 new ResistanceBuff(),
                 new MiningBuff(),
                 new FortuneBuff()
         );
-    }
-
-    @EventHandler
-    public void init(FMLInitializationEvent event) {
-
     }
 
     @EventHandler

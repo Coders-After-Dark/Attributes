@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class DamageBuff extends Trait {
     public DamageBuff() {
-        super(new ResourceLocation(AttributesConstants.MODID, "damagebuff"), 4, 2, new ResourceLocation(LibMisc.MOD_ID, "attack"), 0, "");
+        super(new ResourceLocation(AttributesConstants.MODID, "damagebuff"), 0, 3, new ResourceLocation(LibMisc.MOD_ID, "attack"), 0, "");
     }
 
     @SubscribeEvent
