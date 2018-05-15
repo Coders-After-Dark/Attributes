@@ -4,25 +4,31 @@ import codersafterdark.attributes.common.CommonProxy;
 import codersafterdark.attributes.common.skills.attack.DamageBuff;
 import codersafterdark.attributes.common.skills.defense.ResistanceBuff;
 import codersafterdark.attributes.common.skills.mining.MiningBuff;
+import codersafterdark.attributes.common.skills.mining.fortune.FortuneBuff;
 import codersafterdark.attributes.utils.AttributesConstants;
 import codersafterdark.reskillable.api.ReskillableRegistries;
-import codersafterdark.reskillable.api.unlockable.Unlockable;
-import net.minecraftforge.event.RegistryEvent;
+import crafttweaker.CraftTweakerAPI;
+import crafttweaker.IAction;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.Logger;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @Mod(modid = AttributesConstants.MODID, name = AttributesConstants.NAME, version = AttributesConstants.VERSION, dependencies = AttributesConstants.DEPENDENCIES, acceptedMinecraftVersions = AttributesConstants.MCVER)
 public class Attributes {
+    public static List<IAction> LATE_ADDITIONS = new LinkedList<>();
+
     @SidedProxy(serverSide = AttributesConstants.PROXY_COMMON, clientSide = AttributesConstants.PROXY_CLIENT, modId = AttributesConstants.MODID)
     public static CommonProxy proxy;
-
     public static Logger logger;
+
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -30,7 +36,8 @@ public class Attributes {
         ReskillableRegistries.UNLOCKABLES.registerAll(
                 new DamageBuff(),
                 new ResistanceBuff(),
-                new MiningBuff()
+                new MiningBuff(),
+                new FortuneBuff()
         );
     }
 
@@ -41,6 +48,8 @@ public class Attributes {
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-
+        if (Loader.isModLoaded("crafttweaker")) {
+            LATE_ADDITIONS.forEach(CraftTweakerAPI::apply);
+        }
     }
 }
