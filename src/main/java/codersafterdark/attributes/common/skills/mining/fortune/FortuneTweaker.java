@@ -6,45 +6,39 @@ import crafttweaker.IAction;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-@ZenClass("mods.attributes.FortuneTweaker")
+@ZenClass("mods.attributes.FortuneBlacklist")
 @ZenRegister
 public class FortuneTweaker {
     @ZenMethod
-    public static void addFortuneTarget(IItemStack block, IItemStack stack) {
-        if (block == null || block.isEmpty()) {
-            CraftTweakerAPI.logError("IItemstack Block-Input was found to be Null or Empty");
-        } else if (!(CraftTweakerMC.getItemStack(block).getItem() instanceof ItemBlock)) {
+    public static void addEntry(IItemStack stack) {
+        if (!(CraftTweakerMC.getItemStack(stack).getItem() instanceof ItemBlock)) {
             CraftTweakerAPI.logError("Input Itemstack for 'Block' param is not a valid block");
-        } else if (stack == null || block.isEmpty()) {
-            CraftTweakerAPI.logError("IItemstack Item-Input was found to be Null or Empty");
         } else {
-            Attributes.LATE_ADDITIONS.add(new addFortuneTarget(CraftTweakerMC.getItemStack(block), CraftTweakerMC.getItemStack(stack)));
+            ItemStack stack1 = CraftTweakerMC.getItemStack(stack);
+            Attributes.LATE_ADDITIONS.add(new addBlackListEntry(stack1));
         }
     }
 
-    public static class addFortuneTarget implements IAction {
-        Block block;
+    public static class addBlackListEntry implements IAction {
         ItemStack stack;
 
-        public addFortuneTarget (ItemStack block, ItemStack stack) {
-            this.block = Block.getBlockFromItem(block.getItem());
+        addBlackListEntry(ItemStack stack) {
             this.stack = stack;
         }
 
         @Override
         public void apply() {
-            FortuneBuff.map.put(block, stack);
+            FortuneBuff.blockList.add(stack);
         }
 
         @Override
         public String describe() {
-            return "Added Block > Item Link for: " + block.getLocalizedName() + " > " + stack.getDisplayName();
+            return "Added Block Blacklist for Block: " + stack.getDisplayName();
         }
     }
 }

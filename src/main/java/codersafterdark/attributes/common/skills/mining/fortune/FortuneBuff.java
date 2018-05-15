@@ -10,26 +10,28 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import static codersafterdark.attributes.utils.AttributesUtilMethod.nextIntInclusive;
 
 public class FortuneBuff extends Trait {
-    static final Map<Block, ItemStack> map = new HashMap<>();
-    private static int fortuneLevel;
+
+    static List<ItemStack> blockList = new ArrayList<>();
 
     static {
-        map.put(Blocks.EMERALD_ORE, new ItemStack(Items.EMERALD, nextIntInclusive(1, 1 + fortuneLevel)));
-        map.put(Blocks.LAPIS_ORE, new ItemStack(Items.DYE, nextIntInclusive(1, 1 + fortuneLevel), 4));
-        map.put(Blocks.REDSTONE_ORE, new ItemStack(Items.REDSTONE, nextIntInclusive(1, 1 + fortuneLevel)));
-        map.put(Blocks.LIT_REDSTONE_ORE, new ItemStack(Items.REDSTONE, nextIntInclusive(1, 1 + fortuneLevel)));
-        map.put(Blocks.QUARTZ_ORE, new ItemStack(Items.QUARTZ, nextIntInclusive(1, 1 + fortuneLevel)));
+        blockList.add(new ItemStack(Blocks.STONE));
+        blockList.add(new ItemStack(Blocks.BROWN_MUSHROOM_BLOCK));
+        blockList.add(new ItemStack(Blocks.RED_MUSHROOM_BLOCK));
+        blockList.add(new ItemStack(Blocks.CHEST));
+        blockList.add(new ItemStack(Blocks.GRASS));
+        blockList.add(new ItemStack(Blocks.GRASS_PATH));
     }
 
     public FortuneBuff() {
@@ -38,24 +40,31 @@ public class FortuneBuff extends Trait {
 
     @SubscribeEvent
     public void onBlockBreak(BlockEvent.HarvestDropsEvent event) {
+        if (event.isCanceled()) {
+            return;
+        }
+
         Block block = event.getState().getBlock();
+        ItemStack blockStack = new ItemStack(block, 1);
         EntityPlayer player = event.getHarvester();
         PlayerData data = PlayerDataHandler.get(player);
         PlayerSkillInfo info = data.getSkillInfo(getParentSkill());
+
+        int fortune = 0;
         int value = Math.round(getParentSkill().getCap() / 3);
 
         if (info.getLevel() == info.skill.getCap()) {
-            fortuneLevel = 3;
+            fortune = 3;
         } else if (info.getLevel() >= (value * 2)) {
-            fortuneLevel = 2;
+            fortune = 2;
         } else if (info.getLevel() >= value) {
-            fortuneLevel = 1;
+            fortune = 1;
         }
 
-        if (map.containsKey(block)) {
-            ItemStack stack = map.get(block);
-            if (stack != null && !stack.isEmpty()) {
-                event.getDrops().add(stack.copy());
+        for (ItemStack stack : event.getDrops()){
+            if (!blockList.contains(blockStack) && stack != blockStack) {
+                event.getDrops().remove(stack);
+                event.getDrops().add(new ItemStack(stack.getItem(), nextIntInclusive(stack.getCount(), stack.getCount() + fortune), stack.getMetadata()));
             }
         }
     }
