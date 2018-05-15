@@ -1,6 +1,5 @@
 package codersafterdark.attributes.common.skills.mining;
 
-import codersafterdark.attributes.utils.AttributesConfigHandler;
 import codersafterdark.attributes.utils.AttributesConfigHandler.AttributesConfigs;
 import codersafterdark.attributes.utils.AttributesConstants;
 import codersafterdark.reskillable.api.data.PlayerData;
@@ -19,22 +18,14 @@ public class MiningBuff extends Trait {
     }
 
     @SubscribeEvent
-    public void onMining(PlayerEvent.BreakSpeed event){
-        float originalSpeed = event.getOriginalSpeed();
+    public void onMining(PlayerEvent.BreakSpeed event) {
         float editedSpeed = event.getNewSpeed();
         EntityPlayer player = event.getEntityPlayer();
         PlayerData data = PlayerDataHandler.get(player);
         PlayerSkillInfo info = data.getSkillInfo(getParentSkill());
-        if (originalSpeed == editedSpeed) {
-            for (int i = 0; i < info.getLevel(); i++) {
-                originalSpeed += AttributesConfigs.Mining.speedBuff;
-            }
-            event.setNewSpeed(originalSpeed);
-        } else {
-            for (int i = 0; i < info.getLevel(); i++) {
-                editedSpeed += AttributesConfigs.Mining.speedBuff;
-            }
-            event.setNewSpeed(editedSpeed);
+        for (int i = 0; i < info.getLevel(); i++) {
+            editedSpeed += AttributesConfigs.Mining.speedBuff;
         }
+        event.setNewSpeed(editedSpeed);
     }
 }
