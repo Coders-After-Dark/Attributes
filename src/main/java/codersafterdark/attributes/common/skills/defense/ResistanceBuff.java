@@ -19,15 +19,17 @@ public class ResistanceBuff extends Trait {
 
     @SubscribeEvent
     public void resistDamage(LivingHurtEvent event) {
-        float baseDamage = event.getAmount();
-        if (event.getEntityLiving() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            PlayerData data = PlayerDataHandler.get(player);
-            PlayerSkillInfo info = data.getSkillInfo(getParentSkill());
-            for (int i = 0; i < info.getLevel(); i++) {
-                baseDamage -= AttributesConfigs.Defense.resBuff;
-            }
-            event.setAmount(baseDamage);
+        if (event.isCanceled() || !(event.getEntityLiving() instanceof EntityPlayer)){
+            return;
         }
+
+        float baseDamage = event.getAmount();
+        EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+        PlayerData data = PlayerDataHandler.get(player);
+        PlayerSkillInfo info = data.getSkillInfo(getParentSkill());
+        for (int i = 0; i < info.getLevel(); i++) {
+            baseDamage -= AttributesConfigs.Defense.resBuff;
+        }
+        event.setAmount(baseDamage);
     }
 }

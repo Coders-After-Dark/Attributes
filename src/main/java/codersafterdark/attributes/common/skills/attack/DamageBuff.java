@@ -20,15 +20,17 @@ public class DamageBuff extends Trait {
 
     @SubscribeEvent
     public void addDamage(LivingHurtEvent event) {
-        float baseDamage = event.getAmount();
-        if (event.getSource().getTrueSource() instanceof EntityPlayer){
-            EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
-            PlayerData data = PlayerDataHandler.get(player);
-            PlayerSkillInfo info = data.getSkillInfo(getParentSkill());
-            for (int i = 0; i < info.getLevel(); i++) {
-                baseDamage += AttributesConfigs.Attack.dmgBuff;
-            }
-            event.setAmount(baseDamage);
+        if (event.isCanceled() || !(event.getSource().getTrueSource() instanceof EntityPlayer)){
+            return;
         }
+
+        float baseDamage = event.getAmount();
+        EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
+        PlayerData data = PlayerDataHandler.get(player);
+        PlayerSkillInfo info = data.getSkillInfo(getParentSkill());
+        for (int i = 0; i < info.getLevel(); i++) {
+            baseDamage += AttributesConfigs.Attack.dmgBuff;
+        }
+        event.setAmount(baseDamage);
     }
 }
