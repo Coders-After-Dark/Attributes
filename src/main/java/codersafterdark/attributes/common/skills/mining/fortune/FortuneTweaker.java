@@ -33,7 +33,7 @@ public class FortuneTweaker {
 
         @Override
         public void apply() {
-            FortuneBuff.blockList.add(stack);
+            TraitFortune.blockList.add(stack);
         }
 
         @Override

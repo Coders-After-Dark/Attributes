@@ -43,7 +43,7 @@ public class FortuneBuff extends Trait {
         }
 
         Block block = event.getState().getBlock();
-        ItemStack blockStack = new ItemStack(block, 1);
+        ItemStack blockStack = new ItemStack(block, 1, block.getMetaFromState(event.getState()));
         EntityPlayer player = event.getHarvester();
         PlayerData data = PlayerDataHandler.get(player);
         PlayerSkillInfo info = data.getSkillInfo(getParentSkill());
@@ -59,10 +59,12 @@ public class FortuneBuff extends Trait {
             fortune = 1;
         }
 
-        for (ItemStack stack : event.getDrops()){
-            if (!blockList.contains(blockStack) && stack != blockStack) {
-                event.getDrops().remove(stack);
-                event.getDrops().add(new ItemStack(stack.getItem(), nextIntInclusive(stack.getCount(), stack.getCount() + fortune), stack.getMetadata()));
+        if (!blockList.contains(blockStack)){
+            for (ItemStack stack : event.getDrops()){
+                if (stack != blockStack) {
+                    event.getDrops().remove(stack);
+                    event.getDrops().add(new ItemStack(stack.getItem(), nextIntInclusive(stack.getCount(), stack.getCount() + fortune), stack.getMetadata()));
+                }
             }
         }
     }

@@ -1,4 +1,4 @@
-package codersafterdark.attributes.common.skills.defense;
+package codersafterdark.attributes.common.skills.attack;
 
 import codersafterdark.attributes.utils.AttributesConfigHandler.AttributesConfigs;
 import codersafterdark.attributes.utils.AttributesConstants;
@@ -12,23 +12,24 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class ResistanceBuff extends Trait {
-    public ResistanceBuff() {
-        super(new ResourceLocation(AttributesConstants.MODID, "resistancebuff"), 0, 3, new ResourceLocation(LibMisc.MOD_ID, "defense"), 0, "");
+public class TraitDamage extends Trait {
+
+    public TraitDamage() {
+        super(new ResourceLocation(AttributesConstants.MODID, "damagebuff"), 0, 3, new ResourceLocation(LibMisc.MOD_ID, "attack"), 0, "");
     }
 
     @SubscribeEvent
-    public void resistDamage(LivingHurtEvent event) {
-        if (event.isCanceled() || !(event.getEntityLiving() instanceof EntityPlayer)){
+    public void addDamage(LivingHurtEvent event) {
+        if (event.isCanceled() || !(event.getSource().getTrueSource() instanceof EntityPlayer)){
             return;
         }
 
         float baseDamage = event.getAmount();
-        EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+        EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
         PlayerData data = PlayerDataHandler.get(player);
         PlayerSkillInfo info = data.getSkillInfo(getParentSkill());
         for (int i = 0; i < info.getLevel(); i++) {
-            baseDamage -= AttributesConfigs.Defense.resBuff;
+            baseDamage += AttributesConfigs.Attack.dmgBuff;
         }
         event.setAmount(baseDamage);
     }

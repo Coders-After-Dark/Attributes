@@ -1,10 +1,10 @@
 package codersafterdark.attributes;
 
 import codersafterdark.attributes.common.CommonProxy;
-import codersafterdark.attributes.common.skills.attack.DamageBuff;
-import codersafterdark.attributes.common.skills.defense.ResistanceBuff;
-import codersafterdark.attributes.common.skills.mining.MiningBuff;
-import codersafterdark.attributes.common.skills.mining.fortune.FortuneBuff;
+import codersafterdark.attributes.common.skills.attack.TraitDamage;
+import codersafterdark.attributes.common.skills.defense.TraitResistance;
+import codersafterdark.attributes.common.skills.mining.TraitMining;
+import codersafterdark.attributes.common.skills.mining.fortune.TraitFortune;
 import codersafterdark.attributes.utils.AttributesConstants;
 import codersafterdark.reskillable.api.ReskillableRegistries;
 import crafttweaker.CraftTweakerAPI;
@@ -38,10 +38,10 @@ public class Attributes {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         ReskillableRegistries.UNLOCKABLES.registerAll(
-                new DamageBuff(),
-                new ResistanceBuff(),
-                new MiningBuff(),
-                new FortuneBuff()
+                new TraitDamage(),
+                new TraitResistance(),
+                new TraitMining(),
+                new TraitFortune()
         );
     }
 
