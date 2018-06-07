@@ -19,7 +19,7 @@ import java.util.List;
 
 import static codersafterdark.attributes.utils.AttributesUtilMethod.nextIntInclusive;
 
-public class FortuneBuff extends Trait {
+public class TraitFortune extends Trait {
 
     static List<ItemStack> blockList = new ArrayList<>();
 
@@ -32,7 +32,7 @@ public class FortuneBuff extends Trait {
         blockList.add(new ItemStack(Blocks.GRASS_PATH));
     }
 
-    public FortuneBuff() {
+    public TraitFortune() {
         super(new ResourceLocation(AttributesConstants.MODID, "fortunebuff"), 1, 3, new ResourceLocation(LibMisc.MOD_ID, "mining"), 0, "");
     }
 
