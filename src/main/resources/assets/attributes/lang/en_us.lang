@@ -7,5 +7,5 @@ skillable.unlock.attributes.resistancebuff=Passive Resistance
 skillable.unlock.attributes.resistancebuff.desc=Grants a Passive Resistance-Boost, Scales with Defense.
 skillable.unlock.attributes.miningbuff=Passive Mining-Speed
 skillable.unlock.attributes.miningbuff.desc=Grants a Passive Mining-Speed Boost, Scales with Mining.
-skillable.unlock.attributes.fortunebuff=Passive Fortune
-skillable.unlock.attributes.fortunebuff.desc=Grants a Passive Fortune-Boost, Scales at 1/3 of Cap, 2/3 of Cap and Capped.
+skillable.unlock.attributes.adaptation=Adaptation
+skillable.unlock.attributes.adaptation.desc=Absorb The Very Essence of Your Enemies With Each Attack!
