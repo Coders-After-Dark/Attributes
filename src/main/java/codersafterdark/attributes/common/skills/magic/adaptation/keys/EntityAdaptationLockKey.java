@@ -3,7 +3,7 @@ package codersafterdark.attributes.common.skills.magic.adaptation.keys;
 import net.minecraft.entity.Entity;
 
 public class EntityAdaptationLockKey extends AdaptationLockKey {
-    protected EntityAdaptationLockKey(String entityID) {
+    public EntityAdaptationLockKey(String entityID) {
         super(entityID);
     }
 

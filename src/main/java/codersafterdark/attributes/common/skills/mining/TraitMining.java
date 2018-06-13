@@ -9,16 +9,15 @@ import codersafterdark.reskillable.api.unlockable.Trait;
 import codersafterdark.reskillable.lib.LibMisc;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 public class TraitMining extends Trait {
     public TraitMining() {
         super(new ResourceLocation(AttributesConstants.MODID, "miningbuff"), 0, 3, new ResourceLocation(LibMisc.MOD_ID, "mining"), 0, "");
     }
 
-    @SubscribeEvent
-    public void onMining(PlayerEvent.BreakSpeed event) {
+    @Override
+    public void getBreakSpeed(BreakSpeed event) {
         float editedSpeed = event.getNewSpeed();
         EntityPlayer player = event.getEntityPlayer();
         PlayerData data = PlayerDataHandler.get(player);

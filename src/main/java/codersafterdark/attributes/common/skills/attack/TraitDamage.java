@@ -10,7 +10,6 @@ import codersafterdark.reskillable.lib.LibMisc;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class TraitDamage extends Trait {
 
@@ -18,8 +17,8 @@ public class TraitDamage extends Trait {
         super(new ResourceLocation(AttributesConstants.MODID, "damagebuff"), 0, 3, new ResourceLocation(LibMisc.MOD_ID, "attack"), 0, "");
     }
 
-    @SubscribeEvent
-    public void addDamage(LivingHurtEvent event) {
+    @Override
+    public void onAttackMob(LivingHurtEvent event) {
         if (event.isCanceled() || !(event.getSource().getTrueSource() instanceof EntityPlayer)){
             return;
         }

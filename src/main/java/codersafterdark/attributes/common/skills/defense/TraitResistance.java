@@ -10,15 +10,14 @@ import codersafterdark.reskillable.lib.LibMisc;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class TraitResistance extends Trait {
     public TraitResistance() {
         super(new ResourceLocation(AttributesConstants.MODID, "resistancebuff"), 0, 3, new ResourceLocation(LibMisc.MOD_ID, "defense"), 0, "");
     }
 
-    @SubscribeEvent
-    public void resistDamage(LivingHurtEvent event) {
+    @Override
+    public void onHurt(LivingHurtEvent event) {
         if (event.isCanceled() || !(event.getEntityLiving() instanceof EntityPlayer)){
             return;
         }
