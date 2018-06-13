@@ -31,7 +31,6 @@ public class AdaptationTweaker {
 
         @Override
         public void apply() {
-            EntityDefinitionWrapper wrapper = new EntityDefinitionWrapper(definition.getId());
 
         }
 

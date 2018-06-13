@@ -1,12 +1,13 @@
 package codersafterdark.attributes.common.skills.magic.adaptation;
 
+import codersafterdark.attributes.common.skills.magic.adaptation.keys.AdaptationLockKey;
+import codersafterdark.attributes.common.skills.magic.adaptation.keys.EntityAdaptationLockKey;
 import codersafterdark.attributes.utils.AttributesConstants;
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.data.PlayerSkillInfo;
 import codersafterdark.reskillable.api.unlockable.Trait;
 import codersafterdark.reskillable.lib.LibMisc;
-import crafttweaker.api.entity.IEntityDefinition;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -18,20 +19,13 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class TraitAdaptation extends Trait {
 
-    public static final Map<Class<? extends Entity>, PotionEffect> adaptation = new HashMap<>();
-
-    static {
-        adaptation.put(EntityCreeper.class , new PotionEffect(MobEffects.SPEED, 20, 1));
-        adaptation.put(EntityWitherSkeleton.class, new PotionEffect(MobEffects.WITHER, 20, 1));
-        adaptation.put(EntityShulker.class, new PotionEffect(MobEffects.LEVITATION, 20, 1));
-    }
+    public static final Map<AdaptationLockKey, PotionEffect> adaptation = new HashMap<>();
 
     public TraitAdaptation() {
         super(new ResourceLocation(AttributesConstants.MODID, "adaptation"), 0, 3, new ResourceLocation(LibMisc.MOD_ID, "magic"), 0, "");
@@ -55,4 +49,6 @@ public class TraitAdaptation extends Trait {
             }
         }
     }
+
+
 }

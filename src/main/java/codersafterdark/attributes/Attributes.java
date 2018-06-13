@@ -3,8 +3,8 @@ package codersafterdark.attributes;
 import codersafterdark.attributes.common.CommonProxy;
 import codersafterdark.attributes.common.skills.attack.TraitDamage;
 import codersafterdark.attributes.common.skills.defense.TraitResistance;
+import codersafterdark.attributes.common.skills.magic.adaptation.TraitAdaptation;
 import codersafterdark.attributes.common.skills.mining.TraitMining;
-import codersafterdark.attributes.common.skills.mining.fortune.TraitFortune;
 import codersafterdark.attributes.utils.AttributesConstants;
 import codersafterdark.reskillable.api.ReskillableRegistries;
 import crafttweaker.CraftTweakerAPI;
@@ -41,7 +41,7 @@ public class Attributes {
                 new TraitDamage(),
                 new TraitResistance(),
                 new TraitMining(),
-                new TraitFortune()
+                new TraitAdaptation()
         );
     }
 
