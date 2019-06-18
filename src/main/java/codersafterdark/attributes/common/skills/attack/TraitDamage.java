@@ -9,9 +9,11 @@ import codersafterdark.reskillable.api.unlockable.Trait;
 import codersafterdark.reskillable.lib.LibMisc;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 public class TraitDamage extends Trait {
+    public int level = 1;
 
     public TraitDamage() {
         super(new ResourceLocation(AttributesConstants.MODID, "damagebuff"), 0, 3, new ResourceLocation(LibMisc.MOD_ID, "attack"), 0, "");
@@ -27,9 +29,14 @@ public class TraitDamage extends Trait {
         EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
         PlayerData data = PlayerDataHandler.get(player);
         PlayerSkillInfo info = data.getSkillInfo(getParentSkill());
-        for (int i = 0; i < info.getLevel(); i++) {
-            baseDamage += AttributesConfigs.Attack.dmgBuff;
-        }
+        baseDamage += AttributesConfigs.Attack.dmgBuff * info.getLevel();
         event.setAmount(baseDamage);
+    }
+
+    @Override
+    public String getDescription() {
+        StringBuilder builder = new StringBuilder(new TextComponentTranslation("reskillable.unlock." + getKey() + ".desc").getUnformattedComponentText());
+        builder.append(" Damage Addition Gained: ").append(AttributesConfigs.Attack.dmgBuff * level);
+        return builder.toString();
     }
 }

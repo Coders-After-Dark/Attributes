@@ -60,7 +60,7 @@ public class AdaptationTweaker {
         }
     }
 
-    public static boolean checkValidIEntityDefinition(IEntityDefinition entity) {
+    private static boolean checkValidIEntityDefinition(IEntityDefinition entity) {
         if (entity == null) {
             CraftTweakerAPI.logError("IEntityDefinition was found to be null");
             return false;
@@ -68,7 +68,7 @@ public class AdaptationTweaker {
         return true;
     }
 
-    public static boolean checkValidIPotionEffect(IPotionEffect effect) {
+    private static boolean checkValidIPotionEffect(IPotionEffect effect) {
         Collection<Potion> potions = ForgeRegistries.POTIONS.getValuesCollection();
         if (effect == null) {
             CraftTweakerAPI.logError("IPotionEffect was found to be null");
